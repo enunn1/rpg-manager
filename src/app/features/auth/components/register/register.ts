@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule],
+  imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
