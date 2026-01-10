@@ -1,1 +1,30 @@
-<h1>RPG Manager</h1>
+<div class="header">
+    <div>
+        <h1 class="header-title" routerLink="/">RPG Manager</h1>
+    </div>
+    
+    <div>
+        @if (isLoggedIn$ | async) {
+            <a class="header-link" routerLink="/dashboard">
+                Dashboard
+            </a>
+        }
+
+        @if (!(isLoggedIn$ | async)) {
+            <a class="header-link" routerLink="/auth/login">Login</a>
+            <a class="header-link" routerLink="/auth/register">Register</a>
+        }
+
+        @if (user$ | async; as user) {
+            <button matButton class="header-link" [matMenuTriggerFor]="menu">
+                {{ user.displayName }}
+            </button>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
+        }
+    </div>
+</div>
+
+

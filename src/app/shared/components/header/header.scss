@@ -1,0 +1,21 @@
+.header {
+    align-items: center;
+    background-color: royalblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.header-title {
+    cursor: pointer;
+    &:hover {
+        color: white;
+    }
+}
+
+.header-link {
+    color: black !important;
+    padding: 0.5em;
+    text-decoration: none;
+}
