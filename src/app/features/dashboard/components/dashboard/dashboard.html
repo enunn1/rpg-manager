@@ -1,4 +1,30 @@
 <div>
-    <h2>Welcome, Traveler!</h2>
+    <h2>Dashboard</h2>
+
+    <div class="dashboard-body">
+        <mat-card class="section" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>Your Campaigns:</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="card-content">
+                <app-campaign-list></app-campaign-list>
+            </mat-card-content>
+            <mat-card-actions class="actions">
+                <button matButton="filled" type="button">Create Campaign</button>
+                <button matButton="tonal" type="button">Join Campaign</button>
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="section" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>Your Characters:</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="card-content">
+                <app-character-list></app-character-list>
+            </mat-card-content>
+            <mat-card-actions class="actions">
+                <button matButton="filled" type="button">Create Character</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>
 

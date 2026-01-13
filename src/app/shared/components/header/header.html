@@ -18,9 +18,11 @@
         @if (user$ | async; as user) {
             <button matButton class="header-link" [matMenuTriggerFor]="menu">
                 {{ user.displayName }}
+                <mat-icon aria-hidden="false" aria-label="Menu Dropdown">arrow_drop_down</mat-icon>
             </button>
 
             <mat-menu #menu="matMenu">
+                <a mat-menu-item>Profile</a>
                 <button mat-menu-item (click)="logout()">Logout</button>
             </mat-menu>
         }
