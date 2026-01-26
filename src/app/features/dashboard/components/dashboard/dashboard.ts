@@ -3,6 +3,9 @@ import { CampaignListComponent } from "../../../campaigns/components/campaign-li
 import { CharacterListComponent } from '../../../characters/components/character-list/character-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateCampaignDialog } from '../../../campaigns/components/create-campaign-dialog/create-campaign-dialog';
+import { CampaignService } from '../../../campaigns/campaigns.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +15,16 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class DashboardComponent {
 
-  constructor() {}
+  constructor(private dialog: MatDialog, private campaignService: CampaignService) {}
+
+  openCreateCampaign() {
+    const ref = this.dialog.open(CreateCampaignDialog, {width: '40%'})
+
+    ref.afterClosed().subscribe(result => {
+      if (result) {
+        this.campaignService.loadMyCampaigns();
+      }
+    });
+  }
 
 }
