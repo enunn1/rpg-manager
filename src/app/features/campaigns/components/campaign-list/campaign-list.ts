@@ -4,6 +4,7 @@ import { Campaign } from '../../../../shared/models/Campaign';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-campaign-list',
@@ -17,7 +18,7 @@ export class CampaignListComponent implements OnInit {
   campaigns$!: Observable<Campaign[]>
   campaignsData = new MatTableDataSource<Campaign>();
 
-  constructor(private campaignService: CampaignService) {}
+  constructor(private campaignService: CampaignService, private router: Router) {}
 
   ngOnInit(): void {
     this.campaigns$ = this.campaignService.campaigns$;
@@ -27,5 +28,9 @@ export class CampaignListComponent implements OnInit {
     });
 
     this.campaignService.loadMyCampaigns();
+  }
+
+  openCampaign(id: string): void {
+    this.router.navigate([`campaigns/${id}`]);
   }
 }

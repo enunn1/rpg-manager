@@ -4,10 +4,6 @@ import { CharacterDetailsComponent } from "./components/character-details/charac
 
 export const CHARACTER_ROUTES: Routes = [
   {
-    path: '',
-    component: CharacterListComponent
-  },
-  {
     path: ':id',
     component: CharacterDetailsComponent
   }

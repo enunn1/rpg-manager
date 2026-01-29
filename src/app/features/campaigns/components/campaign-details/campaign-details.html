@@ -1,1 +1,22 @@
-<p>campaign-details works!</p>
+@if (campaign$ | async; as campaign) {
+  <div>
+    <h2>{{ campaign.name }}</h2>
+
+    <p class="description">
+      {{ campaign.description || 'No description provided.' }}
+    </p>
+
+    <mat-divider></mat-divider>
+
+    <h3>Members</h3>
+    <ul>
+      @for (member of campaign.members; track member) {
+        <li>
+          {{ member.user.displayName }} — {{ member.role }}
+        </li>
+      }
+    </ul>
+  </div>
+} @else {
+  <p>Loading campaign...</p>
+}

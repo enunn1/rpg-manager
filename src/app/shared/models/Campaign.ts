@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface Campaign {
 
     id: string;
@@ -6,10 +8,10 @@ export interface Campaign {
     createdAt: Date;
     updatedAt: Date;
     createdByUserId: string;
-     members: {
+    members: {
         id: string;
         role: 'DM' | 'PLAYER';
-        userId: string;
+        user: User;
     }[];
     
 }

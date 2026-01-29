@@ -22,4 +22,8 @@ export class CampaignService {
     return this.http.get<Campaign[]>(`${this.apiUrl}/user`)
     .subscribe(campaigns => this.campaignsSubject.next(campaigns));
   }
+
+  getCampaignById(id: string) {
+    return this.http.get<Campaign>(`${this.apiUrl}/${id}`);
+  }
 }
