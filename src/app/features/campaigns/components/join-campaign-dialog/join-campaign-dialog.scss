@@ -1,0 +1,12 @@
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-dialog-content mat-form-field:first-of-type {
+    padding-top: .5em;
+}
+
+.error-message {
+    color: var(--mat-sys-error);
+}

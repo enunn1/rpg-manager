@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Create Campaign</h2>
+<mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Enter Code</mat-label>
+        <input matInput type="text" name="name" [ngModel]="code()" (ngModelChange)="code.set($event)" [disabled]="isJoining()">
+    </mat-form-field>
+
+    @if (joinError()) {
+      <p class="error-message" aria-live="polite">{{ joinError() }}</p>
+    }
+
+    <mat-dialog-actions>
+      <button mat-button [disabled]="isJoining()" (click)="dialogRef.close()">Cancel</button>
+      <button mat-raised-button color="primary" [disabled]="isJoining()" (click)="submit()">
+        {{ isJoining() ? 'Joining...' : 'Join' }}
+      </button>
+    </mat-dialog-actions>
+</mat-dialog-content>

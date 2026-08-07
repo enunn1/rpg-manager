@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map } from 'rxjs';
@@ -23,15 +23,14 @@ export class CampaignDetailsComponent implements OnInit {
   campaign$!: Observable<Campaign>;
   isDM$!: Observable<boolean>;
   campaignId = '';
-  invite: CampaignInvite | null = null;
-  isCreatingInvite = false;
-  inviteError = '';
+  invite = signal<CampaignInvite | null>(null);
+  inviteError = signal('');
+  isCreatingInvite = signal(false);
 
   constructor(
     private campaignService: CampaignService,
     private authService: AuthService,
-    private route: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -46,25 +45,25 @@ export class CampaignDetailsComponent implements OnInit {
   }
 
   createInvite(): void {
-    if (!this.campaignId || this.isCreatingInvite) {
+    if (!this.campaignId || this.isCreatingInvite()) {
       return;
     }
     
-
-    this.isCreatingInvite = true;
-    this.inviteError = '';
+    this.isCreatingInvite.set(true);
+    this.inviteError.set('');
 
     this.campaignService.createInvite(this.campaignId).subscribe({
       next: invite => {
-        this.invite = invite;
-        this.isCreatingInvite = false;
-        this.changeDetectorRef.markForCheck();
+        this.invite.set(invite);
+        this.isCreatingInvite.set(false);
       },
       error: error => {
         console.error('Failed to create campaign invite', error);
-        this.inviteError = 'The invite code could not be created.';
-        this.isCreatingInvite = false;
-        this.changeDetectorRef.markForCheck();
+         this.inviteError.set(
+          error.error?.message ??
+            'The invite code could not be created. Please try again.',
+        );
+        this.isCreatingInvite.set(false);
       },
     });
   }

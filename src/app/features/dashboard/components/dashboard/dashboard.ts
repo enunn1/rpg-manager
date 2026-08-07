@@ -4,7 +4,9 @@ import { CharacterListComponent } from '../../../characters/components/character
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateCampaignDialog } from '../../../campaigns/components/create-campaign-dialog/create-campaign-dialog';
+import { JoinCampaignDialog } from '../../../campaigns/components/join-campaign-dialog/join-campaign-dialog';
 import { CampaignService } from '../../../campaigns/campaigns.service';
 
 @Component({
@@ -15,7 +17,11 @@ import { CampaignService } from '../../../campaigns/campaigns.service';
 })
 export class DashboardComponent {
 
-  constructor(private dialog: MatDialog, private campaignService: CampaignService) {}
+  constructor(
+    private dialog: MatDialog,
+    private campaignService: CampaignService,
+    private snackBar: MatSnackBar,
+  ) {}
 
   openCreateCampaign() {
     const ref = this.dialog.open(CreateCampaignDialog, {width: '40%'})
@@ -23,8 +29,24 @@ export class DashboardComponent {
     ref.afterClosed().subscribe(result => {
       if (result) {
         this.campaignService.loadMyCampaigns();
+        this.showConfirmation('Successfully created the campaign!');
       }
     });
+  }
+
+  openJoinCampaign() {
+    const ref = this.dialog.open(JoinCampaignDialog, {width: '40%'})
+
+    ref.afterClosed().subscribe(result => {
+      if (result) {
+        this.campaignService.loadMyCampaigns();
+        this.showConfirmation('Successfully joined the campaign!');
+      }
+    });
+  }
+
+  private showConfirmation(message: string) {
+    this.snackBar.open(message, 'Dismiss', { duration: 4000 });
   }
 
 }

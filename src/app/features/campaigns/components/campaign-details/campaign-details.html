@@ -17,40 +17,44 @@
       }
     </ul>
     @if (isDM$ | async) {
-      <button
-        matButton="filled"
-        type="button"
-        [disabled]="isCreatingInvite"
-        (click)="createInvite()"
-      >
-        {{ isCreatingInvite ? 'Creating Invite...' : 'Invite Player' }}
-      </button>
-    }
-    @if (invite) {
-      <section class="invite-panel" aria-live="polite">
-        <h3>Player Invite</h3>
+      <div>
+        <mat-divider></mat-divider>
+        <h3>Player Invites</h3>
+        <button
+          matButton="filled"
+          type="button"
+          [disabled]="isCreatingInvite"
+          (click)="createInvite()"
+        >
+          {{ isCreatingInvite() ? 'Creating Invite...' : 'Invite Player' }}
+        </button>
+        @if (invite(); as createdInvite) {
+          <section class="invite-panel" aria-live="polite">
+            <h3>Player Invite</h3>
 
-        <p>Share this code with the player you want to invite:</p>
+            <p>Share this code with the player you want to invite:</p>
 
-        <div class="invite-code-row">
-          <code class="invite-code">{{ invite.code }}</code>
+            <div class="invite-code-row">
+              <code class="invite-code">{{ createdInvite.code }}</code>
 
-          <button
-            matButton="outlined"
-            type="button"
-            [cdkCopyToClipboard]="invite.code"
-          >
-            Copy Code
-          </button>
-        </div>
+              <button
+                matButton="outlined"
+                type="button"
+                [cdkCopyToClipboard]="createdInvite.code"
+              >
+                Copy Code
+              </button>
+            </div>
 
-        <p class="invite-expiration">
-          Expires {{ invite.expiresAt | date:'medium' }}
-        </p>
-      </section>
-    }
-    @if (inviteError) {
-      <p class="error-message">{{ inviteError }}</p>
+            <p class="invite-expiration">
+              Expires {{ createdInvite.expiresAt | date:'medium' }}
+            </p>
+          </section>
+        }
+        @if (inviteError()) {
+          <p class="error-message">{{ inviteError() }}</p>
+        }
+      </div>  
     }
   </div>
 } @else {
